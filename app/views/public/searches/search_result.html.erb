@@ -1,0 +1,60 @@
+<!--検索結果テンプレート-->
+<div class="container">
+  <div class="row">
+    <div class="col-8 mx-auto">
+      <h3 class="my-5">検索結果</h3>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-8 mx-auto mt-2">
+  <!--カスタマーで検索をかけた場合-->
+      <% if @range == "ユーザー名" %>
+        <div class="row table-dark py-2">
+          <span class="col-4">名前</span>
+          <span class="col-4 text-center">遊んでいるタイトル数</span>
+        </div>
+      
+        <% @customers.each do |customer| %>
+        <% if customer.guest_user? %>
+          <% else %>
+            <div class="row my-2">
+              <div class="col-md-4 col-4">
+                <%=customer.name %>
+              </div>
+              <div class="col-md-4 col-4 text-center"><%= customer.game_scores.count %></div>
+              <div class="col-md-4"><%=link_to "詳細",customer_path(customer),class:" btn btn-outline-success btn-block"%></div>
+            </div>
+         <% end %>
+        <% end %>
+      </div>
+      
+        <div class="row col-12 text-center d-flex justify-content-center">
+          <div class="col-8 col-sm-12 my-4"><%= paginate @customers ,theme: 'bootstrap-5'%></div>
+        </div>
+      
+  <!--ゲームタイトルで検索をかけた場合-->
+      <% else %>
+         <div class="row table-dark py-2">
+          <span class="col-4">名前</span>
+          <span class="col-4 text-center">遊んでいる人数</span>
+        </div>
+        
+          <% @game_titles.each do |game_title| %>
+          
+            <div class="row my-2">
+              <div class="col-md-4 col-4">
+                <%=game_title.title %>
+              </div>
+              <div class="col-md-4 col-4 text-center"><%= game_title.game_scores.count %></div>
+              <div class="col-md-4"><%= link_to "Let's play",game_title_path(game_title.id),class:"btn btn-outline-success btn-block" %></div>
+            </div>
+          <% end %>
+        <div class="row col-12 text-center d-flex justify-content-center">
+          <div class="col-8 col-sm-12 my-4"><%= paginate @game_titles ,theme: 'bootstrap-5'%></div>
+        </div>
+      <% end %>
+      
+    </div>
+  </div>
+</div>

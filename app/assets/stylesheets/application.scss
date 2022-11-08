@@ -1,0 +1,110 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+.t-text{
+  position:absolute;
+  background-color:rgba(0,0,0,0.4);
+  padding: 3%;
+}
+
+
+ 
+.position-parent{
+  background-image: image-url("42.jpg");
+  position:relative;
+  background-size: cover;               /* 全画面 */
+  background-attachment: fixed;         /* 固定 */
+  background-position: center center;   /* 縦横中央 */
+  background-color: #0A1147;
+  height: 100vh;
+  padding : auto;
+ 
+}
+
+.position2{
+padding-top:30%;
+ 
+}
+
+.profile{
+  background-color:#dcdcdc;
+ 
+ 
+}
+
+.headline{
+  width: 100%;
+  position: relative
+}
+
+.right{
+  margin-left: 90%;
+}
+
+.pagination {
+
+justify-content: center;
+
+}
+
+
+*{
+  font-family: 'DotGothic16', sans-serif;
+}
+
+.title-color{
+  background-color: white;
+}
+
+.height{
+  padding-bottom: 25vw;
+}
+
+body{
+   margin: 0;
+   padding: 0;
+}
+
+.footer{
+ 
+  width: 100vw;
+  position: fixed;
+  bottom: 5vh; 
+}
+
+.review_btn,.btn {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  text-decoration: none;
+  color: #FFF;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.73);
+  padding: 0.3em 0.5em;
+  background: #6C757D;
+  transition: .4s;
+  border-radius: 240px 15px 100px 15px / 15px 200px 15px 185px;
+}
+
+.review_btn:hover {
+  text-shadow: -6px 0px 15px rgba(255, 255, 240, 0.83),
+               6px 0px 15px rgba(255, 255, 240, 0.83);
+}
+
+.btn:hover {
+  text-shadow: -6px 0px 15px rgba(255, 255, 240, 0.83),
+               6px 0px 15px rgba(255, 255, 240, 0.83);
+}
+

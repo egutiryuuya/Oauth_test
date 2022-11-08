@@ -1,0 +1,57 @@
+<!--管理者検索結果-->
+<div class="container">
+  <div class="row">
+    <div class="col-8 mx-auto">
+      <h3 class="my-5">検索結果</h3>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-8 mx-auto mt-2">
+  <!--カスタマーで検索をかけた場合-->
+      <% if @range == "ユーザー名" %>
+        <table class="table table-borderless">
+          <thead class="table-dark">
+            <th class="text-center">ID</th>
+            <th class="text-center">名前</th>
+            <th class="text-center">遊んでいるタイトル数</th>
+            <th></th>
+          </thead>
+          <% @customers.each do |customer| %>
+          <% if customer.name=="guest_user" %>
+            <% else %>
+              <tr>
+                <td class="text-center">customer.id</td>
+                <td class="text-center">
+                  <h4><%=customer.name %></h4>
+                </td>
+                <td class="text-center"><%= customer.game_scores.count %></td>
+                <td><%=link_to "編集",edit_admin_customer_path(customer),class:"btn btn-outline-success"%></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+  <!--ゲームタイトルで検索をかけた場合-->
+      <% else %>
+        <table class="table table-borderless">
+          <thead class="table-dark">
+            <th class="text-center">タイトル</th>
+            <th class="text-center">遊んでいる人数</th>
+            <th></th>
+          </thead>
+          <% @game_titles.each do |game_title| %>
+          <tr>
+            <td>
+              <h4 class="text-center"><%=game_title.title %></h4>
+            </td>
+            <td class="text-center"><%=game_title.game_scores.count %></td>
+            <td class="text-center"><%= link_to "削除する",admin_game_title_path(game_title.id),method: :delete,data: {confirm: "タイトルを削除するとそのタイトルに関するユーザーの戦歴なども削除されます。本当に削除しますか？"},class:"btn btn-outline-danger"  %></td>
+            
+          </tr>
+          <% end %>
+        </table>
+      <% end %>
+        
+    </div>
+  </div>
+</div>

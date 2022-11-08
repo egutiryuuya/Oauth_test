@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RoughRoad</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+     <script src="https://kit.fontawesome.com/2b47545f71.js" crossorigin="anonymous"></script>
+     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous">
+     </script>
+     <%= favicon_link_tag('favicon-cat.ico') %>
+  </head>
+
+  <body>
+  <!--ここからヘッダー-->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+
+     <a class="navbar-brand" href="/">
+      <%= image_tag 'Rough.png',class: "logo-image", width: "150", height: "90" %>
+     </a>
+    
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+     </button>
+     <% if admin_signed_in? %>
+       <%= render "admin/searches/searches" %>
+     <% elsif customer_signed_in? %>
+       <%= render "public/searches/searches" %>
+     <% else %>
+     <% end %>
+     
+     
+     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+       
+     <% if admin_signed_in? %>
+       <ul class="navbar-nav ml-auto">
+         <li class="nav-item"><%= link_to "会員一覧", admin_customers_path, class: "mx-2 my-1 btn btn-secondary" %></li>
+         <li class="nav-item"><%= link_to "タイトル追加", new_admin_game_title_path, class: "mx-2 my-1 btn btn-secondary" %></li>
+         <li class="nav-item"><%= link_to "タイトル一覧", admin_game_titles_path, class: "mx-2 my-1 btn btn-secondary" %></li>
+         <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "mx-2  my-1 btn btn-secondary" %></li>
+         <li class="nav-item"><%= link_to "レビュー", admin_reviews_path, class: "mx-2  my-1 btn btn-secondary" %></li>
+       </ul>
+       
+    
+     <% elsif customer_signed_in? %>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><%= link_to "マイページ", customer_path(current_customer.id), class: "mx-2 my-1 btn btn-secondary" %></li>
+        <li class="nav-item"><%= link_to "タイトル一覧", game_titles_path, class: "mx-2 my-1 btn btn-secondary" %></li>
+        <li class="nav-item"><%= link_to "お気に入り", customer_favorites_path(current_customer), class: "mx-2 my-1 btn btn-secondary" %></li>
+        <li class="nav-item"><%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: "mx-2  my-1 btn btn-secondary" %></li>
+        <li class="nav-item"><%= link_to "レビュー", reviews_path, class: "mx-2  my-1 btn btn-secondary" %></li>
+      </ul>
+    
+      <% else %>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><%= link_to "ゲストログイン", homes_guest_sign_in_path,method: :post, class: "mx-3 btn btn-secondary" %></li>
+        <li class="nav-item"><%= link_to "ログイン", new_customer_session_path, class: "mx-3 btn btn-secondary" %></li>
+        <li class="nav-item"><%= link_to "新規登録", new_customer_registration_path, class: "mx-3 btn btn-secondary" %></li>
+      </ul>
+    
+     <% end %>
+      </div>
+    </nav>
+  </header>
+  
+  <!--ここからメイン-->
+  <main>
+    <% if flash[:notice].present? || flash[:alert].present? %>
+      <div class="text-success"><h5><%=flash[:notice] %></h5></div>
+      <div class="text-danger"><h5><%=flash[:alert] %></h5></div>
+    <% end %>
+    <%= yield %>
+  </main>
+  </body>
+</html>

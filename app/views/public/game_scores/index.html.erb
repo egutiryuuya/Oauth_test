@@ -1,0 +1,41 @@
+<!--選択したゲームタイトル遊んでいる人一覧ページ-->
+
+<%= link_to "戻る",game_title_path(@game_title),class:"btn btn-outline-secondary ml-2 mt-2" %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-sm-12  mx-auto my-5">
+      <h3><%=@game_title.title %>を遊んでいるユーザー</h3>
+      <table class="table mt-5">
+        <thead class="table-dark">
+          <tr>
+            <th>名前</th>
+            <th>勝率</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+<!--勝率、名前、スコア詳細、フォローへのリンク-->
+      <% @game_scores.each do |game_score| %>
+        <tr>
+          <% if game_score.customer_id == current_customer.id %>
+          <% else %>
+          <td>
+            <%= game_score.customer.name %>
+          </td>
+          <td><%= game_score.winrate %>%</td>
+          <td>
+            <%= link_to "詳細を見る",game_title_game_score_path(game_score.game_title_id,game_score),class:"btn btn-outline-success" %>
+          </td>
+          <% @customer=game_score.customer %>
+          <td class="follow_btn<%=@customer.id %>">
+            <%= render "public/relationships/follow",customer: @customer %>
+          </td>
+        </tr>
+        <% end %>
+      <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+           <%#= render "public/relationships/follow_list", customer: current_customer %>

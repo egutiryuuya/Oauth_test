@@ -1,0 +1,32 @@
+
+<!--ゲームタイトル一覧画面-->
+<div class=" container">
+  <div class="row">
+    <div class="col-md-4 col-sm-12 mt-5">
+<!--ユーザー情報テンプレート-->
+      <%= render "public/customers/profile",customer: @customer %>
+    </div>
+<!--ゲームタイトル一覧-->
+    <div class="col-md-8 col-sm-12 my-5 ">
+      <h4 class="ml-5 mb-4">タイトルを選んでください</h3>
+      <div class="row">
+       <% @game_titles.each do |game_title|%>
+        <div class=" border mb-3 mx-auto title-color">
+            <%=link_to game_title_path(game_title) do %>
+          <div class="col-sm-12 mb-5 pt-2 ">
+            <% if game_title.image.attached? %>
+            <%= image_tag game_title.get_game_title_image %>
+            <% end %>
+            <h5 class="text-dark"><%= game_title.title %></h5>
+            <% end %>
+          </div>
+        </div>
+         <% end %>
+      </div>
+        
+        <div class="row col-12 text-center d-flex justify-content-center">
+          <div class="col-8 col-sm-12 my-4"><%= paginate @game_titles ,theme: 'bootstrap-5'%></div>
+        </div>
+    </div>
+  </div>
+</div>
